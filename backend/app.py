@@ -1,5 +1,11 @@
 import io
+import sys
 from pathlib import Path
+
+BACKEND_DIR = Path(__file__).resolve().parent
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
+
 import qrcode
 import qrcode.image.svg
 from flask import Flask, Response, jsonify, request, send_from_directory
@@ -14,7 +20,7 @@ from storedata import (
     serialize_aktif,
 )
 
-FRONTEND_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BACKEND_DIR.parent / "frontend"
 app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="")
 
 
