@@ -3,7 +3,7 @@
       {
         "src": "backend/app.py",
         "use": "@vercel/python",
-        "config": { "includeFiles": ["frontend/**"] }
+        "config": { "includeFiles": ["backend/**", "frontend/**"] }
       }
     ],
     "routes": [
