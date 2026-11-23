@@ -1,7 +1,9 @@
 import io
+import os
 import sys
 from pathlib import Path
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = Path(__file__).resolve().parent
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
@@ -20,17 +22,16 @@ from storedata import (
     serialize_aktif,
 )
 
-FRONTEND_DIR = BACKEND_DIR.parent / "frontend"
-app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="")
+FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend"))
 
+app = Flask(__name__, static_folder=None)
 
-@app.get("/")
-def visitor_page():
+@app.route("/")
+def index():
     return send_from_directory(FRONTEND_DIR, "penitip.html")
 
-
-@app.get("/admin")
-def admin_page():
+@app.route("/admin")
+def admin():
     return send_from_directory(FRONTEND_DIR, "admin.html")
 
 
